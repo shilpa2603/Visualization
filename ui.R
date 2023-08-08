@@ -1,8 +1,3 @@
-# Load libraries
-install.packages("shiny")
-install.packages("tidyverse", dependencies = TRUE)
-library(shiny)
-library(tidyverse)
 
 # Application Layout
 shinyUI(
@@ -16,8 +11,10 @@ shinyUI(
     fluidRow(
       column(12, 
              wellPanel(
-               selectInput("country", "Please Select Native Country",
-                           choices = c("United-States", "Canada", "Mexico", "Germany", "Philippines"))
+               selectInput(inputId = "country",
+                           label = "Country of Origin",
+                           choices = c("United-States","Canada","Mexico","Germany", "Philippines"), 
+                           selected = "United-States")
                
              )
              
