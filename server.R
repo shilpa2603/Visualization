@@ -1,9 +1,13 @@
 # Load libraries
-install.packages("ggthemes")
+#install.packages("ggthemes")
 library(shiny)
 library(tidyverse)
-library(ggthemes)
+library(ggplot2)
+library(plotly) 
+
 # Read in data
+data <- "https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DV0151EN-SkillsNetwork/labs/module_4/starter_code/adult.csv"
+download.file(data, destfile = "adult.csv")
 adult <- read_csv("adult.csv")
 # Convert column names to lowercase for convenience 
 names(adult) <- tolower(names(adult))
@@ -21,7 +25,7 @@ shinyServer(function(input, output) {
       # Histogram
       ggplot(df_country(), aes_string(x =input$continuous_variable)) +
         geom_histogram(bins = input$bins) +  # histogram geom
-        labels(x =input$continuous_variable,  y = "Frequency", title = "Histogram") +  # labels
+        labs(x =input$continuous_variable,  y = "Frequency", title = "Histogram") +  # labels
         facet_wrap(~prediction) # facet by prediction
       theme_minimal()
     }
@@ -30,7 +34,7 @@ shinyServer(function(input, output) {
       ggplot(df_country(), aes_string(y = input$continuous_variable)) +
         geom_boxplot()+  # boxplot geom
         coord_flip() +  # flip coordinates
-        labels(y = input$continuous_variable, title = "Boxplot") +  # labels
+        labs(y = input$continuous_variable, title = "Boxplot") +  # labels
         facet_wrap(~prediction)    # facet by prediction
       theme_fivethirtyeight()
     }
